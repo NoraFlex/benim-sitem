@@ -609,6 +609,156 @@
     z-index: 1;
   }
 
+  /* Stars */
+  .star {
+    position: fixed;
+    border-radius: 50%;
+    background: white;
+    pointer-events: none;
+    z-index: 0;
+    animation: starFall linear forwards;
+  }
+  @keyframes starFall {
+    0%   { transform: translateY(-20px) scale(0); opacity: 0; }
+    10%  { opacity: 1; transform: translateY(0) scale(1); }
+    90%  { opacity: 0.8; }
+    100% { transform: translateY(100vh) scale(0.3); opacity: 0; }
+  }
+
+  /* Poem */
+  .poem-section {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 80px 20px;
+    text-align: center;
+    position: relative;
+    z-index: 2;
+  }
+  .poem-title {
+    font-size: 10px;
+    letter-spacing: 0.4em;
+    text-transform: uppercase;
+    color: var(--sage);
+    margin-bottom: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+  }
+  .poem-title::before, .poem-title::after {
+    content: '';
+    display: inline-block;
+    width: 30px;
+    height: 1px;
+    background: var(--sage);
+  }
+  .poem-body {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(18px, 3vw, 24px);
+    font-style: italic;
+    line-height: 2.2;
+    color: var(--text);
+  }
+  .poem-body .verse {
+    display: block;
+    opacity: 0;
+    transform: translateY(10px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+  .poem-body .verse.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  .poem-body .verse.accent { color: var(--rose); }
+  .poem-body .break { display: block; height: 1.2em; }
+
+  /* Drawing canvas */
+  .draw-section {
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 20px 20px 100px;
+    position: relative;
+    z-index: 2;
+  }
+  .draw-label {
+    font-size: 10px;
+    letter-spacing: 0.4em;
+    text-transform: uppercase;
+    color: var(--sage);
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .draw-label::before {
+    content: '';
+    display: inline-block;
+    width: 30px;
+    height: 1px;
+    background: var(--sage);
+  }
+  .draw-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(30px, 5vw, 48px);
+    font-weight: 300;
+    line-height: 1.2;
+    margin-bottom: 32px;
+  }
+  .draw-toolbar {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 16px;
+    flex-wrap: wrap;
+  }
+  .draw-color {
+    width: 28px; height: 28px;
+    border-radius: 50%;
+    border: 2px solid transparent;
+    cursor: pointer;
+    transition: transform 0.2s, border-color 0.2s;
+  }
+  .draw-color:hover, .draw-color.active { transform: scale(1.2); border-color: var(--text); }
+  .draw-size {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+  }
+  .size-btn {
+    border: 1px solid var(--blush);
+    background: white;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: all 0.2s;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .size-btn:hover { border-color: var(--rose); }
+  .size-btn.active { border-color: var(--rose); background: var(--blush); }
+  .draw-sep { width: 1px; height: 28px; background: var(--blush); }
+  .draw-clear {
+    margin-left: auto;
+    padding: 8px 20px;
+    border: 1px solid var(--blush);
+    border-radius: 100px;
+    background: white;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 12px;
+    color: var(--soft);
+    cursor: pointer;
+    letter-spacing: 0.05em;
+    transition: all 0.2s;
+  }
+  .draw-clear:hover { border-color: var(--rose); color: var(--rose); }
+  #drawCanvas {
+    width: 100%;
+    border-radius: 20px;
+    background: white;
+    box-shadow: 0 4px 30px rgba(212,137,122,0.08);
+    cursor: crosshair;
+    display: block;
+    touch-action: none;
+  }
+
   /* ── Mobile Support ── */
   @media (max-width: 768px) {
     /* Hide custom cursor on touch devices */
@@ -838,6 +988,50 @@
   </div>
 </div>
 
+<!-- Poem Section -->
+<div class="poem-section">
+  <p class="poem-title">sana yazdım</p>
+  <div class="poem-body">
+    <span class="verse">İlk gördüğümde bir şey oldu içimde,</span>
+    <span class="verse">söze dökmek için erken, susmak için geç.</span>
+    <span class="verse break"></span>
+    <span class="verse">Kanım ısındı sessizce,</span>
+    <span class="verse accent">sanki çizgilerinden biriyim ben de —</span>
+    <span class="verse">henüz tamamlanmamış, ama senin.</span>
+    <span class="verse break"></span>
+    <span class="verse">Ağırdan alıyorum,</span>
+    <span class="verse">çünkü güzel şeyler acele götürmez.</span>
+    <span class="verse accent">Ve sen, en güzel şeysin.</span>
+  </div>
+</div>
+
+<!-- Drawing Canvas -->
+<div class="draw-section">
+  <div class="draw-label">Çizim alanı</div>
+  <h2 class="draw-title">Sen de bir şeyler<br>çiz buraya. ✦</h2>
+  <div class="draw-toolbar">
+    <div class="draw-color active" style="background:#d4897a" data-color="#d4897a" onclick="setColor(this)"></div>
+    <div class="draw-color" style="background:#b07a8a" data-color="#b07a8a" onclick="setColor(this)"></div>
+    <div class="draw-color" style="background:#9aab96" data-color="#9aab96" onclick="setColor(this)"></div>
+    <div class="draw-color" style="background:#3d2f2f" data-color="#3d2f2f" onclick="setColor(this)"></div>
+    <div class="draw-color" style="background:#f2d9d0" data-color="#f2d9d0" onclick="setColor(this)"></div>
+    <div class="draw-sep"></div>
+    <div class="draw-size">
+      <button class="size-btn active" data-size="3" onclick="setSize(this)" style="width:20px;height:20px;">
+        <div style="width:4px;height:4px;border-radius:50%;background:var(--soft);"></div>
+      </button>
+      <button class="size-btn" data-size="8" onclick="setSize(this)" style="width:24px;height:24px;">
+        <div style="width:9px;height:9px;border-radius:50%;background:var(--soft);"></div>
+      </button>
+      <button class="size-btn" data-size="18" onclick="setSize(this)" style="width:30px;height:30px;">
+        <div style="width:16px;height:16px;border-radius:50%;background:var(--soft);"></div>
+      </button>
+    </div>
+    <button class="draw-clear" onclick="clearCanvas()">Temizle</button>
+  </div>
+  <canvas id="drawCanvas" height="400"></canvas>
+</div>
+
 <!-- Footer -->
 <footer>
   <div class="divider"></div>
@@ -883,6 +1077,103 @@
   function toggleSecret() {
     const msg = document.getElementById('secretMsg');
     msg.classList.toggle('open');
+  }
+
+  // ── Stars ──
+  function spawnStar() {
+    const s = document.createElement('div');
+    s.className = 'star';
+    const size = 1 + Math.random() * 3;
+    s.style.cssText = `
+      width:${size}px; height:${size}px;
+      left:${Math.random()*100}%;
+      top:${Math.random()*20}%;
+      animation-duration:${4+Math.random()*6}s;
+      animation-delay:${Math.random()*2}s;
+      opacity:${0.4+Math.random()*0.6};
+      box-shadow: 0 0 ${size*2}px white;
+    `;
+    document.body.appendChild(s);
+    setTimeout(() => s.remove(), 8000);
+  }
+  setInterval(spawnStar, 300);
+
+  // ── Poem reveal (staggered) ──
+  const verses = document.querySelectorAll('.verse');
+  const verseObserver = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const vs = entry.target.querySelectorAll('.verse');
+        vs.forEach((v, i) => {
+          setTimeout(() => v.classList.add('visible'), i * 180);
+        });
+        verseObserver.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.3 });
+  const poemBody = document.querySelector('.poem-body');
+  if (poemBody) verseObserver.observe(poemBody);
+
+  // ── Drawing Canvas ──
+  const canvas = document.getElementById('drawCanvas');
+  const ctx = canvas.getContext('2d');
+  let drawing = false;
+  let currentColor = '#d4897a';
+  let currentSize = 3;
+
+  function resizeCanvas() {
+    const data = ctx.getImageData(0, 0, canvas.width, canvas.height);
+    canvas.width = canvas.offsetWidth;
+    ctx.putImageData(data, 0, 0);
+  }
+  resizeCanvas();
+  window.addEventListener('resize', resizeCanvas);
+
+  function getPos(e) {
+    const r = canvas.getBoundingClientRect();
+    const src = e.touches ? e.touches[0] : e;
+    return { x: src.clientX - r.left, y: src.clientY - r.top };
+  }
+
+  function startDraw(e) {
+    drawing = true;
+    const p = getPos(e);
+    ctx.beginPath();
+    ctx.moveTo(p.x, p.y);
+  }
+  function draw(e) {
+    if (!drawing) return;
+    e.preventDefault();
+    const p = getPos(e);
+    ctx.lineTo(p.x, p.y);
+    ctx.strokeStyle = currentColor;
+    ctx.lineWidth = currentSize;
+    ctx.lineCap = 'round';
+    ctx.lineJoin = 'round';
+    ctx.stroke();
+  }
+  function endDraw() { drawing = false; ctx.beginPath(); }
+
+  canvas.addEventListener('mousedown', startDraw);
+  canvas.addEventListener('mousemove', draw);
+  canvas.addEventListener('mouseup', endDraw);
+  canvas.addEventListener('mouseleave', endDraw);
+  canvas.addEventListener('touchstart', startDraw, { passive: false });
+  canvas.addEventListener('touchmove', draw, { passive: false });
+  canvas.addEventListener('touchend', endDraw);
+
+  function setColor(el) {
+    currentColor = el.dataset.color;
+    document.querySelectorAll('.draw-color').forEach(e => e.classList.remove('active'));
+    el.classList.add('active');
+  }
+  function setSize(el) {
+    currentSize = parseInt(el.dataset.size);
+    document.querySelectorAll('.size-btn').forEach(e => e.classList.remove('active'));
+    el.classList.add('active');
+  }
+  function clearCanvas() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
   }
 
   // Custom cursor (desktop only)
