@@ -390,6 +390,225 @@
     transform: translateY(0);
   }
 
+  /* Music player */
+  .music-btn {
+    position: fixed;
+    bottom: 28px;
+    right: 28px;
+    z-index: 999;
+    background: white;
+    border: 1px solid var(--blush);
+    border-radius: 100px;
+    padding: 12px 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 12px;
+    color: var(--soft);
+    cursor: pointer;
+    box-shadow: 0 8px 32px rgba(212,137,122,0.15);
+    transition: all 0.3s ease;
+    letter-spacing: 0.05em;
+  }
+  .music-btn:hover { transform: translateY(-2px); box-shadow: 0 12px 40px rgba(212,137,122,0.2); }
+  .music-btn .music-icon {
+    width: 28px; height: 28px;
+    background: var(--rose);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    color: white;
+    font-size: 11px;
+    flex-shrink: 0;
+    transition: background 0.3s;
+  }
+  .music-btn.playing .music-icon { background: var(--mauve); }
+  .music-bars {
+    display: flex;
+    align-items: flex-end;
+    gap: 2px;
+    height: 14px;
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+  .music-btn.playing .music-bars { opacity: 1; }
+  .music-bars span {
+    width: 3px;
+    background: var(--rose);
+    border-radius: 2px;
+    animation: barAnim 0.8s ease infinite;
+  }
+  .music-bars span:nth-child(1) { animation-delay: 0s; }
+  .music-bars span:nth-child(2) { animation-delay: 0.15s; }
+  .music-bars span:nth-child(3) { animation-delay: 0.3s; }
+  @keyframes barAnim {
+    0%, 100% { height: 4px; }
+    50% { height: 14px; }
+  }
+
+  /* Name hero */
+  .name-section {
+    text-align: center;
+    padding: 120px 20px;
+    position: relative;
+    z-index: 2;
+    overflow: hidden;
+  }
+  .name-bg-text {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(80px, 25vw, 240px);
+    font-weight: 300;
+    color: transparent;
+    -webkit-text-stroke: 1px rgba(212,137,122,0.12);
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    white-space: nowrap;
+    pointer-events: none;
+    letter-spacing: 0.1em;
+  }
+  .name-label {
+    font-size: 11px;
+    letter-spacing: 0.4em;
+    text-transform: uppercase;
+    color: var(--mauve);
+    margin-bottom: 20px;
+    position: relative;
+  }
+  .name-main {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(64px, 15vw, 160px);
+    font-weight: 300;
+    font-style: italic;
+    color: var(--rose);
+    line-height: 1;
+    position: relative;
+    display: inline-block;
+  }
+  .name-main .letter {
+    display: inline-block;
+    opacity: 0;
+    transform: translateY(40px);
+    animation: letterIn 0.6s ease forwards;
+  }
+  @keyframes letterIn {
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .name-tagline {
+    font-size: 15px;
+    color: var(--soft);
+    margin-top: 24px;
+    font-style: italic;
+    position: relative;
+  }
+
+  /* Gallery */
+  .gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+  }
+  .gallery-item {
+    aspect-ratio: 1;
+    border-radius: 16px;
+    background: var(--blush);
+    overflow: hidden;
+    position: relative;
+    cursor: pointer;
+    transition: transform 0.4s ease;
+  }
+  .gallery-item:hover { transform: scale(1.03); }
+  .gallery-item:first-child { grid-column: span 2; aspect-ratio: 2/1; }
+  .gallery-placeholder {
+    width: 100%; height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    color: var(--rose);
+    font-size: 28px;
+    background: linear-gradient(135deg, var(--blush), rgba(176,122,138,0.2));
+  }
+  .gallery-placeholder p {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 11px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--soft);
+  }
+
+  /* Secret message */
+  .secret-wrap {
+    text-align: center;
+    padding: 20px 20px 80px;
+    position: relative;
+    z-index: 2;
+    max-width: 860px;
+    margin: 0 auto;
+  }
+  .secret-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    padding: 18px 36px;
+    border: 1px solid var(--rose);
+    border-radius: 100px;
+    background: transparent;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 20px;
+    font-style: italic;
+    color: var(--rose);
+    cursor: pointer;
+    transition: all 0.4s ease;
+    letter-spacing: 0.05em;
+  }
+  .secret-btn:hover {
+    background: var(--rose);
+    color: white;
+    transform: scale(1.03);
+  }
+  .secret-message {
+    max-width: 560px;
+    margin: 32px auto 0;
+    background: white;
+    border-radius: 28px;
+    padding: 48px 40px;
+    display: none;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 20px 60px rgba(212,137,122,0.1);
+  }
+  .secret-message.open { display: block; animation: fadeUp 0.6s ease forwards; }
+  .secret-message::before {
+    content: '♡';
+    position: absolute;
+    font-size: 180px;
+    color: var(--blush);
+    top: -40px; right: -20px;
+    line-height: 1;
+    pointer-events: none;
+  }
+  .secret-text {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 22px;
+    font-style: italic;
+    line-height: 1.8;
+    color: var(--text);
+    position: relative;
+    z-index: 1;
+  }
+  .secret-sign {
+    margin-top: 24px;
+    font-size: 13px;
+    letter-spacing: 0.2em;
+    color: var(--mauve);
+    text-transform: uppercase;
+    position: relative;
+    z-index: 1;
+  }
+
   /* ── Mobile Support ── */
   @media (max-width: 768px) {
     /* Hide custom cursor on touch devices */
@@ -454,6 +673,20 @@
 
 <div class="cursor" id="cursor"></div>
 <div class="cursor-ring" id="cursorRing"></div>
+
+<!-- Music Player -->
+<button class="music-btn" id="musicBtn" onclick="toggleMusic()">
+  <div class="music-icon" id="musicIcon">▶</div>
+  <span id="musicLabel">Novo Amor · Anchor</span>
+  <div class="music-bars">
+    <span></span><span></span><span></span>
+  </div>
+</button>
+
+<!-- Hidden YouTube iframe -->
+<iframe id="ytPlayer" width="0" height="0"
+  src="https://www.youtube.com/embed/OOFBXO1crqE?enablejsapi=1&loop=1&playlist=OOFBXO1crqE"
+  style="display:none" allow="autoplay"></iframe>
 
 <!-- Floating petals -->
 <script>
@@ -551,6 +784,60 @@
   </div>
 </section>
 
+<!-- Ebru Name Section -->
+<div class="name-section">
+  <div class="name-bg-text">Ebru</div>
+  <p class="name-label">için yapıldı</p>
+  <div class="name-main" id="nameMain"></div>
+  <p class="name-tagline">her çizgi senden bir iz taşır.</p>
+</div>
+
+<!-- Gallery -->
+<section>
+  <div class="section-label">Eserlerin</div>
+  <h2 class="section-title reveal">Çizgilerinin<br>yaşadığı yer.</h2>
+  <div class="gallery-grid reveal">
+    <div class="gallery-item">
+      <div class="gallery-placeholder">
+        <span>✦</span>
+        <p>Favori çizimin</p>
+      </div>
+    </div>
+    <div class="gallery-item">
+      <div class="gallery-placeholder">
+        <span>◇</span>
+        <p>İlk çizimin</p>
+      </div>
+    </div>
+    <div class="gallery-item">
+      <div class="gallery-placeholder">
+        <span>○</span>
+        <p>En son çizimin</p>
+      </div>
+    </div>
+    <div class="gallery-item">
+      <div class="gallery-placeholder">
+        <span>◈</span>
+        <p>En sevdiğin</p>
+      </div>
+    </div>
+  </div>
+  <p style="text-align:center; margin-top:20px; font-size:12px; color:var(--soft); letter-spacing:0.1em;">yakında çizimlerin burada olacak ✦</p>
+</section>
+
+<!-- Secret Message -->
+<div class="secret-wrap">
+  <button class="secret-btn" onclick="toggleSecret()">
+    ♡ &nbsp; Gizli bir mesaj var
+  </button>
+  <div class="secret-message" id="secretMsg">
+    <p class="secret-text">
+      Düşündüğümden daha samimisin — herşeye sahip olman dileğiyle.
+    </p>
+    <p class="secret-sign">— Halit</p>
+  </div>
+</div>
+
 <!-- Footer -->
 <footer>
   <div class="divider"></div>
@@ -559,6 +846,45 @@
 </footer>
 
 <script>
+  // Name letter animation
+  const name = 'Ebru';
+  const nameEl = document.getElementById('nameMain');
+  name.split('').forEach((ch, i) => {
+    const span = document.createElement('span');
+    span.className = 'letter';
+    span.textContent = ch;
+    span.style.animationDelay = (0.3 + i * 0.12) + 's';
+    nameEl.appendChild(span);
+  });
+
+  // Music toggle
+  let musicPlaying = false;
+  function toggleMusic() {
+    const btn = document.getElementById('musicBtn');
+    const icon = document.getElementById('musicIcon');
+    const label = document.getElementById('musicLabel');
+    const iframe = document.getElementById('ytPlayer');
+    musicPlaying = !musicPlaying;
+    if (musicPlaying) {
+      btn.classList.add('playing');
+      icon.textContent = '⏸';
+      label.textContent = 'Novo Amor · Anchor';
+      iframe.src = iframe.src.replace('&autoplay=0','') + '&autoplay=1';
+      // reload with autoplay
+      iframe.src = 'https://www.youtube.com/embed/OOFBXO1crqE?enablejsapi=1&loop=1&playlist=OOFBXO1crqE&autoplay=1';
+    } else {
+      btn.classList.remove('playing');
+      icon.textContent = '▶';
+      iframe.src = 'https://www.youtube.com/embed/OOFBXO1crqE?enablejsapi=1&loop=1&playlist=OOFBXO1crqE';
+    }
+  }
+
+  // Secret message toggle
+  function toggleSecret() {
+    const msg = document.getElementById('secretMsg');
+    msg.classList.toggle('open');
+  }
+
   // Custom cursor (desktop only)
   const cursor = document.getElementById('cursor');
   const ring = document.getElementById('cursorRing');
