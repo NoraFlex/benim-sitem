@@ -1,0 +1,599 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Senin İçin ✦</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=DM+Sans:wght@300;400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --cream: #fdf8f3;
+    --blush: #f2d9d0;
+    --rose: #d4897a;
+    --mauve: #b07a8a;
+    --sage: #9aab96;
+    --text: #3d2f2f;
+    --soft: #7a6060;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--cream);
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 300;
+    overflow-x: hidden;
+    cursor: none;
+  }
+
+  /* Custom cursor */
+  .cursor {
+    width: 12px; height: 12px;
+    background: var(--rose);
+    border-radius: 50%;
+    position: fixed;
+    pointer-events: none;
+    z-index: 9999;
+    transition: transform 0.15s ease;
+    mix-blend-mode: multiply;
+  }
+  .cursor-ring {
+    width: 36px; height: 36px;
+    border: 1px solid var(--mauve);
+    border-radius: 50%;
+    position: fixed;
+    pointer-events: none;
+    z-index: 9998;
+    transition: all 0.25s ease;
+    opacity: 0.6;
+  }
+
+  /* Floating petals */
+  .petal {
+    position: fixed;
+    width: 8px; height: 8px;
+    border-radius: 50% 0;
+    opacity: 0;
+    animation: floatPetal linear infinite;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  @keyframes floatPetal {
+    0% { transform: translateY(110vh) rotate(0deg); opacity: 0; }
+    10% { opacity: 0.4; }
+    90% { opacity: 0.3; }
+    100% { transform: translateY(-10vh) rotate(360deg); opacity: 0; }
+  }
+
+  /* Noise texture overlay */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 1;
+    opacity: 0.5;
+  }
+
+  /* Hero */
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 60px 20px;
+    position: relative;
+    z-index: 2;
+  }
+
+  .hero-tag {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 11px;
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+    color: var(--mauve);
+    opacity: 0;
+    animation: fadeUp 1s ease 0.2s forwards;
+    margin-bottom: 24px;
+  }
+
+  .hero-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(52px, 10vw, 110px);
+    font-weight: 300;
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+    opacity: 0;
+    animation: fadeUp 1.2s ease 0.4s forwards;
+  }
+
+  .hero-title em {
+    font-style: italic;
+    color: var(--rose);
+  }
+
+  .hero-sub {
+    font-size: 15px;
+    color: var(--soft);
+    max-width: 380px;
+    line-height: 1.7;
+    margin-top: 24px;
+    opacity: 0;
+    animation: fadeUp 1s ease 0.7s forwards;
+  }
+
+  .scroll-hint {
+    position: absolute;
+    bottom: 40px;
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    color: var(--mauve);
+    opacity: 0;
+    animation: fadeUp 1s ease 1.2s forwards, bob 2s ease 2s infinite;
+  }
+
+  @keyframes bob {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(6px); }
+  }
+
+  /* Decorative ring */
+  .hero-ring {
+    position: absolute;
+    width: min(500px, 80vw);
+    height: min(500px, 80vw);
+    border: 1px solid rgba(212, 137, 122, 0.2);
+    border-radius: 50%;
+    animation: spin 30s linear infinite;
+  }
+  .hero-ring::after {
+    content: '';
+    position: absolute;
+    width: calc(100% - 60px);
+    height: calc(100% - 60px);
+    top: 30px; left: 30px;
+    border: 1px dashed rgba(176, 122, 138, 0.15);
+    border-radius: 50%;
+  }
+
+  @keyframes spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+  }
+
+  /* Sections */
+  section {
+    position: relative;
+    z-index: 2;
+    padding: 100px 20px;
+    max-width: 860px;
+    margin: 0 auto;
+  }
+
+  .section-label {
+    font-size: 10px;
+    letter-spacing: 0.4em;
+    text-transform: uppercase;
+    color: var(--sage);
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .section-label::before {
+    content: '';
+    display: inline-block;
+    width: 30px;
+    height: 1px;
+    background: var(--sage);
+  }
+
+  .section-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(36px, 5vw, 56px);
+    font-weight: 300;
+    line-height: 1.15;
+    margin-bottom: 40px;
+  }
+
+  /* Quotes grid */
+  .quotes-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+  }
+
+  @media(max-width: 600px) {
+    .quotes-grid { grid-template-columns: 1fr; }
+  }
+
+  .quote-card {
+    background: white;
+    border-radius: 20px;
+    padding: 32px;
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.4s ease, box-shadow 0.4s ease;
+    opacity: 0;
+    animation: fadeUp 0.8s ease forwards;
+  }
+
+  .quote-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 20px 60px rgba(212, 137, 122, 0.12);
+  }
+
+  .quote-card::before {
+    content: '"';
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 120px;
+    color: var(--blush);
+    position: absolute;
+    top: -20px;
+    left: 16px;
+    line-height: 1;
+  }
+
+  .quote-card:nth-child(1) { animation-delay: 0.1s; }
+  .quote-card:nth-child(2) { animation-delay: 0.2s; }
+  .quote-card:nth-child(3) { animation-delay: 0.3s; }
+  .quote-card:nth-child(4) { animation-delay: 0.4s; }
+  .quote-card:nth-child(5) { animation-delay: 0.5s; grid-column: span 2; }
+
+  @media(max-width: 600px) {
+    .quote-card:nth-child(5) { grid-column: span 1; }
+  }
+
+  .quote-text {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 20px;
+    font-style: italic;
+    line-height: 1.6;
+    color: var(--text);
+    position: relative;
+    z-index: 1;
+    margin-bottom: 16px;
+  }
+
+  .quote-accent {
+    display: inline-block;
+    width: 20px;
+    height: 2px;
+    background: var(--rose);
+  }
+
+  .quote-card.wide .quote-text {
+    font-size: 26px;
+  }
+
+  /* Color dots on cards */
+  .dot {
+    position: absolute;
+    border-radius: 50%;
+    opacity: 0.15;
+  }
+
+  /* About / message section */
+  .message-section {
+    background: white;
+    border-radius: 32px;
+    padding: 60px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  @media(max-width: 600px) {
+    .message-section { padding: 40px 28px; }
+  }
+
+  .message-section::before {
+    content: '';
+    position: absolute;
+    width: 300px; height: 300px;
+    background: radial-gradient(circle, rgba(242, 217, 208, 0.5), transparent);
+    top: -100px; right: -100px;
+    border-radius: 50%;
+  }
+
+  .message-text {
+    font-size: 17px;
+    line-height: 1.9;
+    color: var(--soft);
+    max-width: 560px;
+    position: relative;
+    z-index: 1;
+  }
+
+  .message-text strong {
+    color: var(--rose);
+    font-weight: 400;
+  }
+
+  /* Skills / traits */
+  .traits {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 48px;
+  }
+
+  .trait {
+    padding: 10px 22px;
+    border-radius: 100px;
+    font-size: 13px;
+    letter-spacing: 0.05em;
+    border: 1px solid;
+    transition: all 0.3s ease;
+    cursor: default;
+  }
+
+  .trait:hover {
+    transform: scale(1.05);
+  }
+
+  .trait-rose { border-color: var(--rose); color: var(--rose); }
+  .trait-rose:hover { background: var(--rose); color: white; }
+  .trait-mauve { border-color: var(--mauve); color: var(--mauve); }
+  .trait-mauve:hover { background: var(--mauve); color: white; }
+  .trait-sage { border-color: var(--sage); color: var(--sage); }
+  .trait-sage:hover { background: var(--sage); color: white; }
+
+  /* Footer */
+  footer {
+    text-align: center;
+    padding: 80px 20px;
+    position: relative;
+    z-index: 2;
+  }
+
+  .footer-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 48px;
+    font-weight: 300;
+    font-style: italic;
+    color: var(--rose);
+    margin-bottom: 16px;
+  }
+
+  .footer-sub {
+    font-size: 13px;
+    color: var(--soft);
+    letter-spacing: 0.1em;
+  }
+
+  /* Divider */
+  .divider {
+    width: 60px;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--rose), transparent);
+    margin: 0 auto 48px;
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* Scroll reveal */
+  .reveal {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.8s ease, transform 0.8s ease;
+  }
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* ── Mobile Support ── */
+  @media (max-width: 768px) {
+    /* Hide custom cursor on touch devices */
+    .cursor, .cursor-ring { display: none; }
+    body { cursor: auto; }
+
+    /* Hero */
+    .hero {
+      padding: 80px 24px 60px;
+      min-height: 100svh;
+    }
+    .hero-tag { font-size: 10px; letter-spacing: 0.25em; }
+    .hero-title { font-size: clamp(42px, 13vw, 72px); }
+    .hero-sub { font-size: 14px; max-width: 100%; }
+    .hero-ring {
+      width: min(320px, 85vw);
+      height: min(320px, 85vw);
+    }
+    .scroll-hint { bottom: 24px; }
+
+    /* Sections */
+    section { padding: 64px 20px; }
+
+    .section-title { font-size: clamp(30px, 8vw, 44px); margin-bottom: 28px; }
+
+    /* Message card */
+    .message-section {
+      padding: 36px 24px;
+      border-radius: 24px;
+    }
+    .message-text { font-size: 15px; line-height: 1.85; max-width: 100%; }
+
+    /* Traits */
+    .traits { gap: 10px; margin-top: 32px; }
+    .trait { padding: 8px 16px; font-size: 12px; }
+
+    /* Quote cards */
+    .quotes-grid {
+      grid-template-columns: 1fr;
+      gap: 16px;
+    }
+    .quote-card { padding: 28px 24px; border-radius: 18px; }
+    .quote-card:nth-child(5) { grid-column: span 1; }
+    .quote-card.wide .quote-text { font-size: 20px; }
+    .quote-text { font-size: 18px; }
+    .quote-card::before { font-size: 90px; top: -16px; }
+
+    /* Footer */
+    footer { padding: 60px 20px; }
+    .footer-title { font-size: 36px; }
+    .footer-sub { font-size: 12px; }
+  }
+
+  @media (max-width: 400px) {
+    .hero-title { font-size: 38px; }
+    .message-section { padding: 28px 18px; }
+    .quote-card { padding: 24px 18px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+
+<!-- Floating petals -->
+<script>
+  const colors = ['#f2d9d0','#d4897a','#b07a8a','#9aab96'];
+  for(let i = 0; i < 18; i++) {
+    const p = document.createElement('div');
+    p.className = 'petal';
+    p.style.cssText = `
+      left: ${Math.random()*100}%;
+      background: ${colors[Math.floor(Math.random()*colors.length)]};
+      width: ${4+Math.random()*8}px;
+      height: ${4+Math.random()*8}px;
+      animation-duration: ${8+Math.random()*12}s;
+      animation-delay: ${Math.random()*10}s;
+      border-radius: ${Math.random()>0.5 ? '50% 0' : '50%'};
+    `;
+    document.body.appendChild(p);
+  }
+</script>
+
+<!-- Hero -->
+<section class="hero">
+  <div class="hero-ring"></div>
+  <p class="hero-tag">✦ Senin için yapıldı ✦</p>
+  <h1 class="hero-title">
+    Çizmek,<br><em>hayal kurmak,</em><br>var olmak.
+  </h1>
+  <p class="hero-sub">
+    Sanatın, sonsuzluğa açılan bir kapı. Ve sen o kapının en güzel tarafısın.
+  </p>
+  <p class="scroll-hint">↓ aşağı kaydır</p>
+</section>
+
+<!-- Message Section -->
+<section>
+  <div class="section-label">Sana dair</div>
+  <h2 class="section-title reveal">Bir sanatçının<br>dünyası bambaşkadır.</h2>
+
+  <div class="message-section reveal">
+    <p class="message-text">
+      Her çizgin, içinden geçenlerin sessiz bir tercümesidir. 
+      <strong>Kalemini tuttuğunda dünya biraz daha güzel bir yer olur.</strong>
+      Bazen kendin farkında olmasan da yarattığın şeyler başkalarına ilham verir — 
+      tıpkı senin bana ilham verdiğin gibi.<br><br>
+      Kendi tarzını bul, onu sahiplen. 
+      <strong>Hiç kimse senin gibi göremez bu dünyayı.</strong>
+    </p>
+
+    <div class="traits">
+      <span class="trait trait-rose">✦ Yaratıcı</span>
+      <span class="trait trait-mauve">✦ Duyarlı</span>
+      <span class="trait trait-sage">✦ İlham verici</span>
+      <span class="trait trait-rose">✦ Özgün</span>
+      <span class="trait trait-mauve">✦ Güçlü</span>
+      <span class="trait trait-sage">✦ Harika</span>
+    </div>
+  </div>
+</section>
+
+<!-- Quotes -->
+<section>
+  <div class="section-label">Sadece senin için</div>
+  <h2 class="section-title reveal">Seni besleyen<br>sözler.</h2>
+
+  <div class="quotes-grid">
+    <div class="quote-card reveal">
+      <div class="dot" style="width:120px;height:120px;background:var(--blush);top:-30px;right:-30px;"></div>
+      <p class="quote-text">Sanat, sözcüklerin yetersiz kaldığı yerde konuşur.</p>
+      <span class="quote-accent"></span>
+    </div>
+
+    <div class="quote-card reveal">
+      <div class="dot" style="width:100px;height:100px;background:#e8ebd4;bottom:-20px;left:-20px;"></div>
+      <p class="quote-text">Mükemmel olmak için değil, gerçek olmak için çiz.</p>
+      <span class="quote-accent"></span>
+    </div>
+
+    <div class="quote-card reveal">
+      <div class="dot" style="width:80px;height:80px;background:rgba(176,122,138,0.2);top:20px;right:20px;"></div>
+      <p class="quote-text">Her büyük sanatçı başta acemiydi. Pes etmeyenleri zaman, dönüştürür.</p>
+      <span class="quote-accent"></span>
+    </div>
+
+    <div class="quote-card reveal">
+      <div class="dot" style="width:90px;height:90px;background:var(--blush);bottom:-10px;right:20px;opacity:0.2;"></div>
+      <p class="quote-text">Hayal ettiğin her şeyi çizebilirsin. Hayal gücünün sınırı yok.</p>
+      <span class="quote-accent"></span>
+    </div>
+
+    <div class="quote-card wide reveal">
+      <div class="dot" style="width:200px;height:200px;background:var(--blush);top:-60px;right:-60px;"></div>
+      <p class="quote-text">Senin elinden çıkan her şey, bu dünyadaki tek örnektir. Bunu asla unutma.</p>
+      <span class="quote-accent"></span>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer>
+  <div class="divider"></div>
+  <p class="footer-title">Devam et. ✦</p>
+  <p class="footer-sub">Bu sayfa sana yapıldı. Çünkü bunu hak ediyorsun.</p>
+</footer>
+
+<script>
+  // Custom cursor (desktop only)
+  const cursor = document.getElementById('cursor');
+  const ring = document.getElementById('cursorRing');
+  const isTouchDevice = ('ontouchstart' in window) || (navigator.maxTouchPoints > 0);
+
+  if (!isTouchDevice) {
+    let mx = 0, my = 0, rx = 0, ry = 0;
+    document.addEventListener('mousemove', e => {
+      mx = e.clientX; my = e.clientY;
+      cursor.style.left = mx - 6 + 'px';
+      cursor.style.top = my - 6 + 'px';
+    });
+    function animRing() {
+      rx += (mx - rx - 18) * 0.12;
+      ry += (my - ry - 18) * 0.12;
+      ring.style.left = rx + 'px';
+      ring.style.top = ry + 'px';
+      requestAnimationFrame(animRing);
+    }
+    animRing();
+  } else {
+    cursor.style.display = 'none';
+    ring.style.display = 'none';
+    document.body.style.cursor = 'auto';
+  }
+
+  // Scroll reveal
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if(e.isIntersecting) e.target.classList.add('visible');
+    });
+  }, { threshold: 0.15 });
+
+  reveals.forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
